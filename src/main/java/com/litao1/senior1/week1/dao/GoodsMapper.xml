@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.litao1.senior1.week1.dao.GoodsMapper">
+	<select id="list" resultType="goods" >
+		SELECT g.*,b.bname bname,k.kname kname from tb_goods g LEFT JOIN
+		tb_brand b on g.bid=b.bid LEFT JOIN
+		tb_goodskind k on g.kid=k.kid
+		<where>
+			<if test="gname != null and gname !=''">
+				gname like concat('%',#{gname},'%')
+			</if>
+		</where>
+	</select>
+	
+	<insert id="add">
+		insert into tb_goods(gname,ename,size,price,num,bq,pic,bid,kid) 
+		VALUES(#{gname},#{ename},#{size},#{price},#{num},#{bq},#{pic},#{bid},#{kid})
+	</insert>
+	
+</mapper>
